@@ -1,0 +1,49 @@
+{
+  "name": "vanlioglu-atolye-cad",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev": "concurrently \"vite\" \"wait-on http://localhost:5173 && electron .\"",
+    "build:renderer": "vite build",
+    "build:electron": "tsc -p electron/tsconfig.json || echo 'skip tsc (using JS)'",
+    "build:all": "npm run build:renderer && npm run build:electron",
+    "pack:win": "npm run build:all && electron-builder --win portable",
+    "android:init": "npx cap init VanliogluAtolyeCAD com.vanlioglu.cad || true",
+    "android:sync": "npx cap sync android",
+    "android:open": "npx cap open android"
+  },
+  "dependencies": {
+    "three": "^0.158.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@capacitor/core": "^5.0.0"
+  },
+  "devDependencies": {
+    "electron": "^26.0.0",
+    "vite": "^5.0.0",
+    "concurrently": "^8.0.0",
+    "wait-on": "^7.0.0",
+    "typescript": "^5.0.0",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.vanlioglu.cad",
+    "productName": "Vanlioglu Atolye CAD",
+    "files": [
+      "dist-renderer/**",
+      "dist-electron/**",
+      "assets/**",
+      "node_modules/**"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "icon": "assets/icon.ico"
+    }
+  }
+}

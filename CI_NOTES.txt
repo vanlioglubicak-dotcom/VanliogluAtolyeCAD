@@ -1,0 +1,1 @@
+Use the provided GitHub Actions workflows to generate Windows portable EXE and to produce renderer artifacts for Android. For Android APK building, open the project in Android Studio to sign and build the APK.
